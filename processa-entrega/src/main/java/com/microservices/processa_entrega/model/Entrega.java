@@ -12,14 +12,16 @@ public class Entrega {
     private Long pedidoId;
     private String enderecoEntrega;
     private String status;
+    private String emailCliente;
 
     public Entrega() {
     }
 
-    public Entrega(Long pedidoId, String enderecoEntrega, String status) {
+    public Entrega(Long pedidoId, String enderecoEntrega, String status, String emailCliente) {
         this.pedidoId = pedidoId;
         this.enderecoEntrega = enderecoEntrega;
         this.status = status;
+        this.emailCliente = emailCliente;
     }
 
     public Long getId() { return id; }
@@ -30,6 +32,8 @@ public class Entrega {
     public void setEnderecoEntrega(String enderecoEntrega) { this.enderecoEntrega = enderecoEntrega; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public String getEmailCliente() { return emailCliente; }
+    public void setEmailCliente(String emailCliente) { this.emailCliente = emailCliente; }
 
     @Override
     public String toString() {
@@ -38,6 +42,7 @@ public class Entrega {
                 ", pedidoId=" + pedidoId +
                 ", enderecoEntrega='" + enderecoEntrega + '\'' +
                 ", status='" + status + '\'' +
+                ", emailCliente='" + emailCliente + '\'' +
                 '}';
     }
 }
