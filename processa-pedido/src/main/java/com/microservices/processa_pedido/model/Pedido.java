@@ -13,15 +13,17 @@ public class Pedido {
     private Double valorTotal;
     private String status;
     private String  localEntrega;
+    private String emailCliente;
 
     public Pedido() {
     }
 
-    public Pedido(String descricao, Double valorTotal, String status, String localEntrega) {
+    public Pedido(String descricao, Double valorTotal, String status, String localEntrega, String emailCliente) {
         this.descricao = descricao;
         this.valorTotal = valorTotal;
         this.status = status;
         this.localEntrega = localEntrega;
+        this.emailCliente = emailCliente;
     }
 
     public Long getId() {
@@ -30,6 +32,14 @@ public class Pedido {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
     }
 
     public String getLocalEntrega() {
@@ -71,6 +81,7 @@ public class Pedido {
                 ", valorTotal=" + valorTotal +
                 ", status='" + status + '\'' +
                 ", localEntrega='" + localEntrega + '\'' +
+                ", emailCliente='" + emailCliente + '\'' +
                 '}';
     }
 }
