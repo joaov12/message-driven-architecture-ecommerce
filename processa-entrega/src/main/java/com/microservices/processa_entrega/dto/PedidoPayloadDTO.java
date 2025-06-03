@@ -7,16 +7,18 @@ public class PedidoPayloadDTO {
     private Double valorTotal;
     private String status;
     private String localEntrega;
+    private String emailCliente;
 
     public PedidoPayloadDTO() {
     }
 
-    public PedidoPayloadDTO(Long id, String descricao, Double valorTotal, String status, String localEntrega) {
+    public PedidoPayloadDTO(Long id, String descricao, Double valorTotal, String status, String localEntrega, String emailCliente) {
         this.id = id;
         this.descricao = descricao;
         this.valorTotal = valorTotal;
         this.status = status;
         this.localEntrega = localEntrega;
+        this.emailCliente = emailCliente;
     }
 
     public Long getId() {
@@ -57,5 +59,13 @@ public class PedidoPayloadDTO {
 
     public void setLocalEntrega(String localEntrega) {
         this.localEntrega = localEntrega;
+    }
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
     }
 }

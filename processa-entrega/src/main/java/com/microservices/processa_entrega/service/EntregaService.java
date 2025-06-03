@@ -39,7 +39,8 @@ public class EntregaService {
         Entrega novaEntrega = new Entrega(
                 pedidoPayload.getId(),
                 endereco,
-                "ENTREGA_PROCESSADA_COM_SUCESSO" // Status inicial
+                "ENTREGA_PROCESSADA_COM_SUCESSO", // Status inicial
+                pedidoPayload.getEmailCliente()
         );
 
         Entrega entregaSalva = entregaRepository.save(novaEntrega);
@@ -57,7 +58,8 @@ public class EntregaService {
                     entrega.getId(),
                     entrega.getPedidoId(),
                     entrega.getStatus(),
-                    "Status da entrega atualizado para: " + entrega.getStatus()
+                    "Status da entrega atualizado para: " + entrega.getStatus(),
+                    entrega.getEmailCliente()
             );
 
             String mensagemJson = objectMapper.writeValueAsString(payload);
