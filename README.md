@@ -1,7 +1,7 @@
-Arquitetura:
+# Arquitetura:
 ![arquitetura](/assets/arquitetura.png)
 
-Stack
+# Stack
 - Java
 - Springboot
 - Amazon Web Services - AWS
@@ -12,3 +12,5 @@ Stack
 - PostgreSQL
 - MySQL
 - Docker
+
+
