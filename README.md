@@ -12,4 +12,11 @@
 - MySQL
 - Docker
 
+# Key Architectural Concepts
+- Microservices Architecture
+- Decentralized Data Management
+- Asynchronous Message-Based Architecture
+- Containerization
+
+
 
