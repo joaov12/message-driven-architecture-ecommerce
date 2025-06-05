@@ -6,9 +6,8 @@
 - Springboot
 - Amazon Web Services - AWS
     - AWS Simple Queue Service (AWS SQS)
-    - AWS Simple Email Service (AWS SES)
 - RabbitMQ
-- Terraform 
+- Simple Mail Transfer Protocol 
 - PostgreSQL
 - MySQL
 - Docker
