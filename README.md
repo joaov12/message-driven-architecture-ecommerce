@@ -1,5 +1,5 @@
 Arquitetura:
-
+![arquitetura](/assets/arquitetura.png)
 
 Stack
 - Java
