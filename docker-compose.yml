@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-db-pedido
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=pedidos_db
+    ports:
+      - "5433:5433"
+    networks:
+      - minha-rede-pedido
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-pedido
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - minha-rede-pedido
+
+  servico-pedidos:
+    # construuindo a imagem usando o Dockerfile no diretório ./processa-pedido.
+    build: ./processa-pedido
+    container_name: servico-pedidos
+    ports:
+      - "8080:8080" 
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5433/pedidos_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - postgres-db
+      - rabbitmq
+    networks:
+      - minha-rede-pedido
+
+networks:
+  minha-rede-pedido:
+    driver: bridge
