@@ -1,44 +1,97 @@
 version: '3.8'
 
 services:
+
+  # --- INFRAESTRUTURA ---
+
   postgres-db:
     image: postgres:15
-    container_name: postgres-db-pedido
+    container_name: postgres-db
+    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=pedidos_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: pedidos_db
     ports:
-      - "5433:5433"
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
-      - minha-rede-pedido
+      - minha-rede-app
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PWD}
+      MYSQL_DATABASE: db_entregas
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - minha-rede-app
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq-pedido
+    container_name: rabbitmq
+    restart: always
     ports:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - minha-rede-pedido
+      - minha-rede-app
+
+  # --- MICROSSERVIÇOS ---
 
   servico-pedidos:
     # construuindo a imagem usando o Dockerfile no diretório ./processa-pedido.
     build: ./processa-pedido
     container_name: servico-pedidos
+    restart: always
     ports:
-      - "8080:8080" 
+      - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5433/pedidos_db
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/pedidos_db
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - postgres-db
       - rabbitmq
     networks:
-      - minha-rede-pedido
+      - minha-rede-app
+
+  servico-entrega:
+    build: ./processa-entrega
+    container_name: servico-entrega
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/db_entregas?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
+      - SPRING_RABBITMQ_HOST=rabbitmq
+
+      - AWS_REGION=${AWS_DEFAULT_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
+      - SQS_QUEUE_URL=${SQS_NOTIFICACAO_URL} 
+    depends_on:
+      - mysql-db
+      - rabbitmq
+      - servico-pedidos
+    networks:
+      - minha-rede-app
+
+# --- VOLUMES E REDES ---
+
+volumes:
+  postgres_data: {}
+  mysql_data: {}
 
 networks:
-  minha-rede-pedido:
+  minha-rede-app:
     driver: bridge
