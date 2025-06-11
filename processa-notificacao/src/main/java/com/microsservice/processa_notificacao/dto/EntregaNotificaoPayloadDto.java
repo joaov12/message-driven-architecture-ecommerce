@@ -6,16 +6,18 @@ public class EntregaNotificaoPayloadDto {
     private String statusEntrega;
     private String mensagem;
     private String emailCliente;
+    private String descricao;
 
     public EntregaNotificaoPayloadDto() {
     }
 
-    public EntregaNotificaoPayloadDto(Long entregaId, Long pedidoId, String statusEntrega, String mensagem, String emailCliente) {
+    public EntregaNotificaoPayloadDto(Long entregaId, Long pedidoId, String statusEntrega, String mensagem, String emailCliente, String descricao) {
         this.entregaId = entregaId;
         this.pedidoId = pedidoId;
         this.statusEntrega = statusEntrega;
         this.mensagem = mensagem;
         this.emailCliente = emailCliente;
+        this.descricao = descricao;
     }
 
     public Long getEntregaId() {
@@ -58,6 +60,14 @@ public class EntregaNotificaoPayloadDto {
         return emailCliente;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     @Override
     public String toString() {
         return "EntregaNotificaoPayloadDto{" +
@@ -66,6 +76,7 @@ public class EntregaNotificaoPayloadDto {
                 ", statusEntrega='" + statusEntrega + '\'' +
                 ", mensagem='" + mensagem + '\'' +
                 ", emailCliente='" + emailCliente + '\'' +
+                ", descricao='" + descricao + '\'' +
                 '}';
     }
 
