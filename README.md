@@ -1,5 +1,5 @@
 # Arquitetura:
-![arquitetura](/assets/arquitetura.png)
+![arquitetura](/assets/arquiteturaThemeWhite.png)
 
 # Stack
 - Java
