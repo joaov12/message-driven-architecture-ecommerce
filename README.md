@@ -10,7 +10,7 @@
 - Simple Mail Transfer Protocol 
 - PostgreSQL
 - MySQL
-- Docker w/ Doker-compose
+- Docker w/ Docker-compose
 
 # Key Architectural Concepts
 - Microservices Architecture
