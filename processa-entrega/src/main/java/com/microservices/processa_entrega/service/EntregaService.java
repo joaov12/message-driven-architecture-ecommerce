@@ -39,7 +39,7 @@ public class EntregaService {
         Entrega novaEntrega = new Entrega(
                 pedidoPayload.getId(),
                 endereco,
-                "ENTREGA_PROCESSADA_COM_SUCESSO", // Status inicial
+                "ENTREGA_PROCESSADA_COM_SUCESSO", 
                 pedidoPayload.getEmailCliente(),
                 pedidoPayload.getDescricao()
         );
@@ -72,7 +72,7 @@ public class EntregaService {
                     .build();
 
             sqsClient.sendMessage(sendMessageRequest);
-            log.info("Mensagem de status da entrega enviada para SQS: {}", mensagemJson);
+            log.info("Mensagem de status da entrega enviada para SQS : {}", mensagemJson);
 
         } catch (JsonProcessingException e) {
             log.error("Erro ao serializar payload da entrega para JSON: {}", e.getMessage());
