@@ -46,9 +46,11 @@ public class NotificacaoService {
                     "Olá!\n\n O seu pedido foi processado e já está com a transportadora\n\n" +
                             "- - - DEBUG - - - \n" +
                             "Pedido ID: %d\n" +
-                            "Entrega ID: %d\n",
+                            "Entrega ID: %d\n" +
+                            "Nome do produto: %s\n",
                     payload.getPedidoId(),
                     payload.getEntregaId(),
+                    payload.getDescricao() != null ? payload.getDescricao() : "N/A",
 
                     payload.getmensagem() != null ? "com a mensagem '"+payload.getmensagem()+"'" : "",
                     payload.getStatusEntrega(),
