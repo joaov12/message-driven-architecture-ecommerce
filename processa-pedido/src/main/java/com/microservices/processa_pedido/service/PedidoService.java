@@ -33,7 +33,6 @@ public class PedidoService {
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
         log.info("Pedido salvo: {}", pedidoSalvo);
 
-        // O objeto pedidoSalvo será convertido para JSON automaticamente devido ao Jackson2JsonMessageConverter configurado
         rabbitTemplate.convertAndSend(exchangeName, routingKeyPedidoCriado, pedidoSalvo);
         log.info("Evento de pedido criado enviado para RabbitMQ: {}", pedidoSalvo);
 

@@ -23,10 +23,10 @@ public class EntregaService {
     private EntregaRepository entregaRepository;
 
     @Autowired
-    private SqsClient sqsClient; // Injete o cliente SQS
+    private SqsClient sqsClient; 
 
     @Autowired
-    private ObjectMapper objectMapper; // Para converter o DTO para JSON
+    private ObjectMapper objectMapper; 
 
     @Value("${aws.sqs.queue.entrega-notificacao.url}")
     private String entregaNotificacaoQueueUrl;
@@ -76,10 +76,8 @@ public class EntregaService {
 
         } catch (JsonProcessingException e) {
             log.error("Erro ao serializar payload da entrega para JSON: {}", e.getMessage());
-            // Adicionar tratamento de erro mais robusto se necessário
         } catch (SqsException e) {
             log.error("Erro ao enviar mensagem para SQS: {}", e.awsErrorDetails().errorMessage());
-            // Adicionar tratamento de erro mais robusto se necessário
         }
     }
 }

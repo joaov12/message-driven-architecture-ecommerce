@@ -1,10 +1,9 @@
 package com.microsservice.processa_notificacao.service; // Seu pacote
 
-import com.microsservice.processa_notificacao.dto.EntregaNotificaoPayloadDto; // Renomeie se necessário
+import com.microsservice.processa_notificacao.dto.EntregaNotificaoPayloadDto; 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.beans.factory.annotation.Value; // Não mais necessário para o ARN do tópico de e-mail
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,7 +22,7 @@ public class NotificacaoService {
     private static final Logger log = LoggerFactory.getLogger(NotificacaoService.class);
 
     @Autowired
-    private JavaMailSender mailSender; // Injeta o JavaMailSender do Spring
+    private JavaMailSender mailSender; 
 
     @Value("${spring.mail.username}")
     private String fromEmail;

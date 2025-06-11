@@ -20,7 +20,6 @@ public class RabbitMQConfig {
         return new TopicExchange(exchangeName);
     }
 
-    // Configura o Spring para converter objetos para JSON ao enviar para o RabbitMQ
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();

@@ -14,28 +14,22 @@ import org.springframework.amqp.support.converter.MessageConverter;
 @Configuration
 public class RabbitMQConfig {
 
-    // Estes valores devem corresponder ao que o Microsserviço #1 está usando
-    @Value("${pedido.exchange.name}") // Ex: pedidos.v1.events
+    @Value("${pedido.exchange.name}") 
     private String exchangeName;
 
-    @Value("${pedido.routingkey.pedido-criado}") // Ex: pedido.criado
+    @Value("${pedido.routingkey.pedido-criado}") 
     private String routingKeyPedidoCriado;
 
-    // Nome da fila para este consumidor (Microsserviço #2)
-    @Value("${entrega.queue.name}") // Ex: entregas.v1.pedidos-criados.queue
+    @Value("${entrega.queue.name}") 
     private String queueName;
 
     @Bean
     public TopicExchange pedidosExchange() {
-        // Apenas declaramos para garantir que o Spring saiba sobre ela,
-        // mas o produtor (MS1) é quem efetivamente a cria se não existir.
-        // O importante é que o nome seja o mesmo.
         return new TopicExchange(exchangeName);
     }
 
     @Bean
     public Queue entregasQueue() {
-        // durable: true (a fila sobrevive a restarts do broker)
         return new Queue(queueName, true);
     }
 
@@ -43,10 +37,9 @@ public class RabbitMQConfig {
     public Binding bindingPedidosCriados(Queue entregasQueue, TopicExchange pedidosExchange) {
         return BindingBuilder.bind(entregasQueue)
                 .to(pedidosExchange)
-                .with(routingKeyPedidoCriado); // Escuta mensagens com esta routing key
+                .with(routingKeyPedidoCriado); 
     }
 
-    // Essencial para que o RabbitMQ consiga desserializar a mensagem JSON para o nosso DTO
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();

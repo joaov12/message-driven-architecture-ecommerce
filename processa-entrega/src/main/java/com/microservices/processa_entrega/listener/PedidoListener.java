@@ -16,9 +16,6 @@ public class PedidoListener {
     @Autowired
     EntregaService entregaService;
 
-    // O 'queues' deve ser o NOME DA FILA (não a propriedade, mas o valor dela)
-    // Ex: @RabbitListener(queues = "entregas.v1.pedidos-criados.queue")
-    // Ou referenciar diretamente a propriedade: @RabbitListener(queues = "${entrega.queue.name}")
     @RabbitListener(queues = "${entrega.queue.name}")
     public void receberPedidoParaEntrega(@Payload PedidoPayloadDTO pedidoPayload) {
         log.info("Mensagem recebida da fila {}: {}", "${entrega.queue.name}", pedidoPayload);
@@ -27,8 +24,6 @@ public class PedidoListener {
             log.info("Pedido {} processado para entrega com sucesso.", pedidoPayload.getId());
         } catch (Exception e) {
             log.error("Erro ao processar pedido {} para entrega: {}", pedidoPayload.getId(), e.getMessage());
-            // Aqui você pode adicionar lógica de tratamento de erro, como enviar para uma Dead Letter Queue (DLQ)
-            // Por enquanto, apenas logamos.
         }
     }
 }
