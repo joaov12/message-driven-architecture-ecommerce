@@ -86,6 +86,23 @@ services:
     networks:
       - minha-rede-app
 
+  servico-notificacao:
+    build: ./processa-notificacao
+    container_name: servico-notificacao
+    restart: always
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - AWS_REGION=${AWS_DEFAULT_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
+      - SQS_QUEUE_URL=${SQS_NOTIFICACAO_URL}
+      - GMAIL_USERNAME=${GMAIL_USERNAME}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+    depends_on:
+      - rabbitmq
+    networks:
+      - minha-rede-app
+
 # --- VOLUMES E REDES ---
 
 volumes:
