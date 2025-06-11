@@ -43,7 +43,7 @@ public class NotificacaoService {
 
             String messageBodyText = String.format(
                     "Olá!\n\n O seu pedido foi processado e já está com a transportadora\n\n" +
-                            "- - - DEBUG - - - \n" +
+                            "- - - - DEBUG - - - - \n" +
                             "Pedido ID: %d\n" +
                             "Entrega ID: %d\n" +
                             "Nome do produto: %s\n",
