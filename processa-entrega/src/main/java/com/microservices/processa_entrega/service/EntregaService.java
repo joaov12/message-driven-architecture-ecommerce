@@ -40,7 +40,8 @@ public class EntregaService {
                 pedidoPayload.getId(),
                 endereco,
                 "ENTREGA_PROCESSADA_COM_SUCESSO", // Status inicial
-                pedidoPayload.getEmailCliente()
+                pedidoPayload.getEmailCliente(),
+                pedidoPayload.getDescricao()
         );
 
         Entrega entregaSalva = entregaRepository.save(novaEntrega);
@@ -59,7 +60,8 @@ public class EntregaService {
                     entrega.getPedidoId(),
                     entrega.getStatus(),
                     "Status da entrega atualizado para: " + entrega.getStatus(),
-                    entrega.getEmailCliente()
+                    entrega.getEmailCliente(),
+                    entrega.getDescricao()
             );
 
             String mensagemJson = objectMapper.writeValueAsString(payload);
