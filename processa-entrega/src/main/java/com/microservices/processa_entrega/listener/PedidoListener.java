@@ -18,7 +18,7 @@ public class PedidoListener {
 
     @RabbitListener(queues = "${entrega.queue.name}")
     public void receberPedidoParaEntrega(@Payload PedidoPayloadDTO pedidoPayload) {
-        log.info("Mensagem recebida da fila {}: {}", "${entrega.queue.name}", pedidoPayload);
+        log.info("Mensagem recebida da fila {}: {}", "entregas.v1.pedidos-criados.queue", pedidoPayload.toString());
         try {
             entregaService.processarPedidoParaEntrega(pedidoPayload);
             log.info("Pedido {} processado para entrega com sucesso.", pedidoPayload.getId());

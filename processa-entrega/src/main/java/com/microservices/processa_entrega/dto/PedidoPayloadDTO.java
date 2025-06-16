@@ -68,4 +68,16 @@ public class PedidoPayloadDTO {
     public void setEmailCliente(String emailCliente) {
         this.emailCliente = emailCliente;
     }
+
+    @Override
+    public String toString() {
+        return "PedidoPayloadDTO{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", valorTotal=" + valorTotal +
+                ", status='" + status + '\'' +
+                ", localEntrega='" + localEntrega + '\'' +
+                ", emailCliente='" + emailCliente + '\'' +
+                '}';
+    }
 }
